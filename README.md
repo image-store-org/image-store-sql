@@ -4,5 +4,5 @@
 Java Spring Boot image store SQL server **application**. <br />
 Dockerized. <br />
 Exposes a RESTful API that provides access to stored image resources. <br />
-The purpose of the **application** is to store image resources in a database and offer access to them. <br />
+The purpose of the **application** is to store image resources in a database and offer access to them. <br /><br />
 Consumed by: https://github.com/vartdalen/image-store-web
