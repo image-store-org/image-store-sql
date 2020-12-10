@@ -1,0 +1,7 @@
+package com.vartdalen.imagestoresql.repository;
+
+import com.vartdalen.imagestoresql.model.Image;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ImageRepository extends JpaRepository<Image, Long> {
+}
