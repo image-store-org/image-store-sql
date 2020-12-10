@@ -18,7 +18,7 @@ jobs:
           java-version: 11.0.6
           architecture: x64
       - name: Maven package
-        run: mvn -B package --file ./mvc-java-spring-boot-template-web/pom.xml
+        run: mvn -B package --file ./image-store-sql/pom.xml
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -31,8 +31,8 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v1
       - name: Docker build
-        run: docker buildx build --platform linux/amd64,linux/arm64 -t vartdalen/mvc-java-spring-boot-template:latest ./mvc-java-spring-boot-template-web/.
+        run: docker buildx build --platform linux/amd64,linux/arm64 -t vartdalen/image-store-sql:latest ./image-store-sql/.
         if: ${{ !(github.event_name == 'push' && github.ref == 'refs/heads/master') }}
       - name: Docker build and push
-        run: docker buildx build --platform linux/amd64,linux/arm64 -t vartdalen/mvc-java-spring-boot-template:latest ./mvc-java-spring-boot-template-web/. --push
+        run: docker buildx build --platform linux/amd64,linux/arm64 -t vartdalen/image-store-sql:latest ./image-store-sql/. --push
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
