@@ -1,20 +1,21 @@
 package com.vartdalen.imagestoresql.model;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "image")
+@Table
 public class Image {
     @Id
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private long id;
+    @Column
     private String title;
+    @Column
     private String category;
+    @Column
     private byte[] bytes;
+    @Column
     private Timestamp created;
 
     public Image() {}
