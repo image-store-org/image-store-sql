@@ -1,4 +1,4 @@
-[![ci](https://github.com/vartdalen/mvc-java-spring-boot-template/workflows/ci/badge.svg)](https://github.com/vartdalen/mvc-java-spring-boot-template/actions?workflow=ci)
+[![ci](https://github.com/vartdalen/image-store-sql/workflows/ci/badge.svg)](https://github.com/vartdalen/image-store-sql/actions?workflow=ci)
 
 # image-store-sql
 Java Spring Boot image store SQL server **application**. <br />
