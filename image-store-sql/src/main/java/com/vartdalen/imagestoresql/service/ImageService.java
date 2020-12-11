@@ -1,7 +1,6 @@
 package com.vartdalen.imagestoresql.service;
 import com.vartdalen.imagestoresql.model.Image;
 import com.vartdalen.imagestoresql.repository.ImageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +9,11 @@ import java.util.Optional;
 @Service
 public class ImageService {
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
+
+    public ImageService(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     public String helloWorld() {
         return "Hello, World! Regards image-store-sql.";
