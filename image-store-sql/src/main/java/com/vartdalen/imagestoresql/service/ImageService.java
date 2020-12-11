@@ -15,10 +15,6 @@ public class ImageService {
         this.imageRepository = imageRepository;
     }
 
-    public String helloWorld() {
-        return "Hello, World! Regards image-store-sql.";
-    }
-
     public List<Image> getImages() {
         return imageRepository.findAll();
     }
