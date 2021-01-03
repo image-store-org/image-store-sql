@@ -20,7 +20,7 @@ public class ImageController {
     }
 
     @ResponseBody
-    @GetMapping("/")
+    @GetMapping("")
     public List<Image> getAllImages() { return imageService.getImages(); }
 
     @ResponseBody
@@ -36,7 +36,7 @@ public class ImageController {
     }
 
     @ResponseBody
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Image> saveImage(@RequestBody Image image) {
         return new ResponseEntity<>(imageService.saveImage(image), HttpStatus.OK);
     }
