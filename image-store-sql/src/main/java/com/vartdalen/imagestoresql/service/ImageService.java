@@ -1,40 +1,55 @@
 package com.vartdalen.imagestoresql.service;
 import com.vartdalen.imagestoresql.model.Image;
 import com.vartdalen.imagestoresql.repository.ImageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vartdalen.imagestoresql.util.ReflectionUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ImageService {
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
 
-    public String helloWorld() {
-        return "Hello, World! Regards image-store-sql.";
+    public ImageService(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
     }
 
-    public List<Image> getImages() {
+    public List<Image> get() {
         return imageRepository.findAll();
     }
 
-    public Optional<Image> getImageById(long id) {
-        return imageRepository.findById(id);
+    public Image get(long id) {
+        Optional<Image> match = imageRepository.findById(id);
+        if (match.isEmpty()) {
+            throw new EntityNotFoundException(String.format("Image with id %s was not found", id));
+        }
+        return match.get();
     }
 
-    public Image saveImage(Image image) {
-        return imageRepository.save(validate(image));
+    public Image post(Image image) {
+        return imageRepository.save(image);
     }
 
-    public void deleteImageById(long id) {
+    public Image put(Image image) {
+        Optional<Image> match = imageRepository.findById(image.getId());
+        if (match.isEmpty()) {
+            throw new EntityNotFoundException(String.format("Image with id %s was not found", image.getId()));
+        }
+        Image merged;
+        try {
+            merged = ReflectionUtil.mergeObjects(match.get(), image);
+        } catch (IllegalAccessException e) {
+            throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, String.format("Unable to merge Images with id %s", image.getId()));
+        }
+        return imageRepository.save(merged);
+    }
+
+    public void delete(long id) {
         imageRepository.deleteById(id);
-    }
-
-    private Image validate(Image newImage) {
-        Optional<Image> existingImage = getImageById(newImage.getId());
-        return existingImage.orElse(newImage);
     }
 }
