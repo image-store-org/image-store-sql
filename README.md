@@ -11,6 +11,7 @@ The purpose of the **application** is to store image resources in a database and
 
 ## Useful links
 
-API consumer web application: https://github.com/vartdalen/image-store-web
-
-Dockerhub: https://hub.docker.com/repository/docker/vartdalen/image-store-sql
+| Description | Link |
+| ------:| -----------:|
+| API consumer web application: | https://github.com/vartdalen/image-store-web
+| Dockerhub: | https://hub.docker.com/repository/docker/vartdalen/image-store-sql
