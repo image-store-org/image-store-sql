@@ -29,6 +29,11 @@ public class Image {
 
     @Enumerated(EnumType.STRING)
     @NotNull
+    @Column(name = "extension")
+    private ImageExtension extension;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
     @Column(name = "orientation")
     private ImageOrientation orientation;
     
@@ -38,11 +43,6 @@ public class Image {
     @NotNull
     @Column(name = "category")
     private Set<ImageCategory> categories;
-    
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    @Column(name = "extension")
-    private ImageExtension extension;
 
     @CreationTimestamp
     @Column(name = "created", nullable = false, insertable = false, updatable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -50,24 +50,24 @@ public class Image {
 
     public Image() {}
 
-    public Image(long id, String title, ImageOrientation orientation, ImageCategory[] categories, ImageExtension extension) {
+    public Image(long id, String title, ImageExtension extension, ImageOrientation orientation, ImageCategory[] categories) {
         this.id = id;
         this.title = title;
+        this.extension = extension;
         this.orientation = orientation;
         this.categories = new HashSet<>(Arrays.asList(categories));
-        this.extension = extension;
     }
 
     public long getId() { return id; }
     public String getTitle() { return title; }
+    public ImageExtension getExtension() { return extension; }
     public ImageOrientation getOrientation() { return orientation; }
     public Set<ImageCategory> getCategories() { return categories; }
-    public ImageExtension getExtension() { return extension; }
     public LocalDateTime getCreated() { return created.toLocalDateTime(); }
 
     public void setId(long id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }
+    public void setExtension(ImageExtension extension) { this.extension = extension; }
     public void setOrientation(ImageOrientation orientation) { this.orientation = orientation; }
     public void setCategories(ImageCategory[] categories) { this.categories = new HashSet<>(Arrays.asList(categories)); }
-    public void setExtension(ImageExtension extension) { this.extension = extension; }
 }
