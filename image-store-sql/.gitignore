@@ -5,6 +5,11 @@ target/**
 *.ipr
 **/*.iml
 
+# Visual Studio Code
+.classpath
+.project
+.settings
+
 # Maven
 .mvn/**
 mvnw
