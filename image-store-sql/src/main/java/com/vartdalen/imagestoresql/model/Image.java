@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "image")
-public class Image {
+public class Image implements DatabaseRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
