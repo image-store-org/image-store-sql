@@ -1,11 +1,8 @@
 package com.vartdalen.imagestoresql.service;
 import com.vartdalen.imagestoresql.model.Image;
 import com.vartdalen.imagestoresql.repository.ImageRepository;
-import com.vartdalen.imagestoresql.util.ReflectionUtil;
-import org.springframework.http.HttpStatus;
+import com.vartdalen.imagestoresql.validation.QueryValidation;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpServerErrorException;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -36,17 +33,8 @@ public class ImageService {
     }
 
     public Image put(Image image) {
-        Optional<Image> match = imageRepository.findById(image.getId());
-        if (match.isEmpty()) {
-            throw new EntityNotFoundException(String.format("Image with id %s was not found", image.getId()));
-        }
-        Image merged;
-        try {
-            merged = ReflectionUtil.mergeObjects(match.get(), image);
-        } catch (IllegalAccessException e) {
-            throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, String.format("Unable to merge Images with id %s", image.getId()));
-        }
-        return imageRepository.save(merged);
+        Image validated = QueryValidation.put(image, imageRepository);
+        return imageRepository.save(validated);
     }
 
     public void delete(long id) {
